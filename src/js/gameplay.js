@@ -14,6 +14,7 @@ export default class Gameplay {
 
     if (whackPosition === charPosition) {
       this.score += 1;
+      this.gameControl.showCounts = 0;
       scoreEl.getElementsByClassName('score')[0].innerText = this.score;
     } else {
       this.whackMisses += 1;
@@ -25,6 +26,7 @@ export default class Gameplay {
       alert('Вы проиграли!');
       this.score = 0;
       this.whackMisses = 0;
+      this.gameControl.showCounts = 0;
       scoreEl.getElementsByClassName('score')[0].innerText = this.score;
       missEl.getElementsByClassName('score')[0].innerText = this.whackMisses;
     }
