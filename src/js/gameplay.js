@@ -14,7 +14,7 @@ export default class Gameplay {
 
     if (whackPosition === charPosition) {
       this.score += 1;
-      this.gameControl.showCounts = 0;
+      this.gameControl.showCounts -= 1;
       scoreEl.getElementsByClassName('score')[0].innerText = this.score;
     } else {
       this.whackMisses += 1;
