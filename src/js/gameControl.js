@@ -1,12 +1,24 @@
+/* eslint-disable no-underscore-dangle */
 export default class GameControl {
-  constructor() {
+  constructor(scoreView) {
     this.showCounts = 0;
+    this.scoreView = scoreView;
+  }
+
+  set showCounts(counts) {
+    this._showCounts = counts;
+    if (this._showCounts < 0) this._showCounts = 0;
+  }
+
+  get showCounts() {
+    return this._showCounts;
   }
 
   redrawPosition(position) {
     this.charEl = document.querySelector('.character');
     this.cellEl = Array.from(document.getElementsByClassName('cell'))[position];
     this.showCounts += 1;
+    this.scoreView.updateMisses(this.showCounts);
     if (!this.charEl) {
       const newCharEl = document.createElement('div');
       newCharEl.classList.add('character');
@@ -39,10 +51,8 @@ export default class GameControl {
     if (this.showCounts >= 5) {
       // eslint-disable-next-line no-alert
       alert('Вы проиграли!');
-      const scoreEl = document.getElementsByClassName('whack-counter')[0];
-      const missEl = document.getElementsByClassName('miss-counter')[0];
-      scoreEl.getElementsByClassName('score')[0].innerText = 0;
-      missEl.getElementsByClassName('score')[0].innerText = 0;
+      this.scoreView.updateScore(0);
+      this.scoreView.updateMisses(0);
       this.showCounts = 0;
     }
   }
